@@ -5,6 +5,10 @@ plugins {
 android {
     compileSdk 32
 
+    viewBinding{
+        enabled true
+    }
+
     defaultConfig {
         applicationId "com.lucaspetros.dev.pagefriends"
         minSdk 22
@@ -17,18 +21,27 @@ android {
 
     buildTypes {
 
-        viewBinding{
-            enabled true
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "default"
+
+    productFlavors{
+        dev{
+            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+        }
     }
 }
 
