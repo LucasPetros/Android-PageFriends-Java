@@ -47,6 +47,7 @@ public class MyFriendsFragment extends Fragment {
         mViewModel = new ViewModelProvider(requireActivity()).get(FriendsViewModel.class);
 
         configRecyclerView();
+        binding.edtSearch.clearFocus();
 
         refresh();
         startLoadingAnimation();
