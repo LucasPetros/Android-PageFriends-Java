@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lucaspetros.dev.pagefriends.data.model.response.dto.FriendsDTO;
 import com.lucaspetros.dev.pagefriends.data.model.User;
 import com.lucaspetros.dev.pagefriends.databinding.LayoutAdapterMyListFriendsBinding;
+import com.lucaspetros.dev.pagefriends.ui.utils.Picasso;
 
 import java.util.List;
 
@@ -26,12 +28,16 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MyViewHolder(
-                LayoutAdapterMyListFriendsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+                LayoutAdapterMyListFriendsBinding.inflate(LayoutInflater.from(context), parent, false)
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        User user = userList.get(position);
+        holder.binding.tvEmailUser.setText(user.email);
+        holder.binding.tvNameUser.setText(user.firstName + " " + user.lastName);
+        Picasso.picasso(holder.binding.ivAvatar, user.avatar);
 
     }
 
@@ -42,7 +48,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private LayoutAdapterMyListFriendsBinding binding;
+        LayoutAdapterMyListFriendsBinding binding;
 
         public MyViewHolder(@NonNull LayoutAdapterMyListFriendsBinding binding) {
             super(binding.getRoot());

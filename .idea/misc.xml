@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/lgiurizato/AndroidStudioProjects/PageFriends/app/src/main/res/drawable/edt_custom.xml" value="0.1585" />
+        <entry key="..\:/Users/lgiurizato/AndroidStudioProjects/PageFriends/app/src/main/res/drawable/ic_asset_options.xml" value="0.1585" />
         <entry key="..\:/Users/lgiurizato/AndroidStudioProjects/PageFriends/app/src/main/res/layout/activity_main.xml" value="0.259375" />
+        <entry key="..\:/Users/lgiurizato/AndroidStudioProjects/PageFriends/app/src/main/res/layout/fragment_my_friends.xml" value="0.264" />
+        <entry key="..\:/Users/lgiurizato/AndroidStudioProjects/PageFriends/app/src/main/res/layout/layout_adapter_my_list_friends.xml" value="0.4" />
       </map>
     </option>
   </component>

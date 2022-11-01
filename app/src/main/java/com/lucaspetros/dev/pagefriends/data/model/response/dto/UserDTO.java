@@ -1,4 +1,4 @@
-package com.lucaspetros.dev.pagefriends.data.model;
+package com.lucaspetros.dev.pagefriends.data.model.response.dto;
 
 
 import com.lucaspetros.dev.pagefriends.data.model.response.UserResponse;
@@ -14,7 +14,7 @@ public class UserDTO {
     public UserDTO(UserResponse userResponse) {
         this.id = userResponse.user.id;
         this.email = userResponse.user.email;
-        this.name = userResponse.user.name;
+        this.name = userResponse.user.firstName;
         this.lastName = userResponse.user.lastName;
         this.avatar = userResponse.user.avatar;
 

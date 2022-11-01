@@ -20,6 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiModule {
     Application application;
 
+    public static String BASE_URL = "https://reqres.in/api/";
+
     public ApiModule(Application application) {
         this.application = application;
     }
@@ -36,7 +38,8 @@ public class ApiModule {
     @Singleton
     Retrofit provideRetrofit(OkHttpClient.Builder httpClient) {
         return new Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
+                .baseUrl(BASE_URL)
+                .client(httpClient.build())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -16,6 +16,7 @@ public class FriendsViewModelProviderFactory implements ViewModelProvider.Factor
 
     @Inject
     FriendsBusiness friendsBusiness;
+
     Application application;
 
     public FriendsViewModelProviderFactory(Application application, FriendsBusiness friendsBusiness) {

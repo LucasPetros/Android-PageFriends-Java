@@ -1,31 +1,25 @@
-package com.lucaspetros.dev.pagefriends.data.model;
+package com.lucaspetros.dev.pagefriends.data.model.response.dto;
 
 
-
+import com.lucaspetros.dev.pagefriends.data.model.User;
 import com.lucaspetros.dev.pagefriends.data.model.response.FriendsResponse;
 
 import java.util.List;
 
 public class FriendsDTO {
 
-    private final int page;
-    private final int totalPages;
-    private final List<User> friends;
+    private int totalPages;
+    private List<User> listFriends;
+
 
     public FriendsDTO(FriendsResponse friendsResponse) {
-        this.page = friendsResponse.page;
         this.totalPages = friendsResponse.totalPages;
-        this.friends = friendsResponse.friends;
+        this.listFriends = friendsResponse.listFriends;
     }
 
     public List<User> getFriends() {
-        return friends;
+        return listFriends;
     }
-
-    public int getPage() {
-        return page;
-    }
-
 
     public int getTotalPages() {
         return totalPages;
