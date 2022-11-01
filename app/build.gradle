@@ -5,6 +5,10 @@ plugins {
 android {
     compileSdk 32
 
+    viewBinding{
+        enabled true
+    }
+
     defaultConfig {
         applicationId "com.lucaspetros.dev.pagefriends"
         minSdk 22
@@ -17,18 +21,31 @@ android {
 
     buildTypes {
 
-        viewBinding{
-            enabled true
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "default"
+
+    productFlavors{
+        dev{
+            buildConfigField("String", "BASE_URL", "\"https://reqres.in/api/\"")
+        }
+
+        prod{
+            buildConfigField("String", "BASE_URL", "\"https://reqres.in/\"")
+        }
     }
 }
 
@@ -42,17 +59,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Image loading
-    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // API
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
     // Rx
     implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
     // Dagger
@@ -67,9 +84,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
 
-
-
-
     //Swipe refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Shimmer loading
+    implementation'com.facebook.shimmer:shimmer:0.5.0'
 }
