@@ -8,8 +8,8 @@ import java.util.List;
 
 public class FriendsDTO {
 
-    private int totalPages;
-    private List<User> listFriends;
+    private final int totalPages;
+    private final List<User> listFriends;
 
 
     public FriendsDTO(FriendsResponse friendsResponse) {

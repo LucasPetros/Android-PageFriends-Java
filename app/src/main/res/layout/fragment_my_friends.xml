@@ -71,20 +71,20 @@
 
         <EditText
             android:id="@+id/edtSearch"
+            style="@style/edtTextCustom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/edtTextCustom"
-            android:labelFor="@id/edtSearch"
-            android:drawableStart="@drawable/ic_asset_search"
             android:layout_marginHorizontal="@dimen/marginHorizontal16dp"
+            android:autofillHints=""
+            android:drawableStart="@drawable/ic_asset_search"
             android:inputType="textCapWords"
-            android:maxLines="1"
+            android:labelFor="@id/edtSearch"
             android:maxLength="60"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -113,18 +113,50 @@
             app:layout_constraintTop_toBottomOf="@id/view"
             tools:visibility="visible" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/swiperefresh">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardShimmer"
+                style="@style/cardShimmerloading"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="@dimen/marginHorizontalCardView12dp" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shimmer_view_container1">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardShimmer2"
+                style="@style/cardShimmerloading"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="@dimen/marginHorizontalCardView12dp" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/marginVertical8dp"
-            android:layout_marginBottom="@dimen/marginVertical32dp"
+            android:layout_marginBottom="@dimen/marginVertical16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtMyFriends"
-
-            >
+            app:layout_constraintTop_toBottomOf="@+id/txtMyFriends">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFriends"

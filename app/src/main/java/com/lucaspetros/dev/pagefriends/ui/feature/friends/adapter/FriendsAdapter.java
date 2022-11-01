@@ -48,7 +48,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        LayoutAdapterMyListFriendsBinding binding;
+        private final LayoutAdapterMyListFriendsBinding binding;
 
         public MyViewHolder(@NonNull LayoutAdapterMyListFriendsBinding binding) {
             super(binding.getRoot());

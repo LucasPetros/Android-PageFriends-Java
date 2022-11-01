@@ -22,15 +22,21 @@ import com.lucaspetros.dev.pagefriends.ui.feature.friends.viewmodel.FriendsViewM
 
 public class MyFriendsFragment extends Fragment {
 
-    private FragmentMyFriendsBinding binding;
+    private FragmentMyFriendsBinding binding = null;
     private RecyclerView recyclerView;
     private FriendsAdapter adapter;
     private FriendsViewModel mViewModel;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         binding = FragmentMyFriendsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -39,24 +45,17 @@ public class MyFriendsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity()).get(FriendsViewModel.class);
+
         configRecyclerView();
-        mViewModel.getQntPages();
+
         refresh();
+        startLoadingAnimation();
 
-        mViewModel.pagesMutableLiveData.observe(getViewLifecycleOwner(), pages -> mViewModel.getAllFriends(pages));
+        mViewModel.getQntPages();
 
-        mViewModel.listAllFriendsDTOMutableLiveData.observe(getViewLifecycleOwner(), userList -> {
-            if (userList.size() == 0) {
-                binding.txtMyFriends.setVisibility(View.GONE);
-                binding.txtUserNotFound.setVisibility(View.VISIBLE);
-            } else {
-                binding.txtMyFriends.setVisibility(View.VISIBLE);
-                binding.txtUserNotFound.setVisibility(View.GONE);
-            }
-            adapter = new FriendsAdapter(userList, getContext());
-            recyclerView.setAdapter(adapter);
+        observerLoading();
 
-        });
+        observerDataApi();
 
         binding.edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,9 +78,46 @@ public class MyFriendsFragment extends Fragment {
 
     }
 
+    private void observerDataApi() {
+        mViewModel.listAllFriendsDTOMutableLiveData.observe(getViewLifecycleOwner(), userList -> {
+            if (userList.size() == 0) {
+                binding.txtMyFriends.setVisibility(View.GONE);
+                binding.txtUserNotFound.setVisibility(View.VISIBLE);
+            } else {
+                binding.txtMyFriends.setVisibility(View.VISIBLE);
+                binding.txtUserNotFound.setVisibility(View.GONE);
+            }
+            adapter = new FriendsAdapter(userList, getContext());
+            recyclerView.setAdapter(adapter);
+
+        });
+    }
+
+    private void observerLoading() {
+        mViewModel.loading.observe(getViewLifecycleOwner(), loading -> {
+            if (!loading) {
+                stopLoadinAnimation();
+            }
+        });
+    }
+
+    private void startLoadingAnimation() {
+        binding.cardShimmer.setVisibility(View.VISIBLE);
+        binding.cardShimmer2.setVisibility(View.VISIBLE);
+        binding.shimmerViewContainer1.startShimmer();
+        binding.shimmerViewContainer2.startShimmer();
+    }
+
+    private void stopLoadinAnimation() {
+        binding.shimmerViewContainer1.stopShimmer();
+        binding.shimmerViewContainer2.stopShimmer();
+        binding.cardShimmer.setVisibility(View.GONE);
+        binding.cardShimmer2.setVisibility(View.GONE);
+    }
+
     private void refresh() {
         binding.swiperefresh.setOnRefreshListener(() -> {
-            mViewModel.getAllFriends(mViewModel.getQntPage());
+            mViewModel.getQntPages();
             binding.edtSearch.setText("");
             binding.swiperefresh.setRefreshing(false);
         });
@@ -93,5 +129,14 @@ public class MyFriendsFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mViewModel.clearObservable();
+        mViewModel.getQntPages();
+        binding.edtSearch.setText("");
     }
 }

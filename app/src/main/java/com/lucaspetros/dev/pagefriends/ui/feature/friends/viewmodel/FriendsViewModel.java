@@ -15,13 +15,13 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class FriendsViewModel extends AndroidViewModel {
     private static final List<User> myFriends = new ArrayList<>();
+    private final List<User> userFilter = new ArrayList<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     public FriendsBusiness friendsBusiness;
-    public MutableLiveData<Integer> pagesMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<List<User>> listAllFriendsDTOMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<Throwable> error = new MutableLiveData<>();
     public MutableLiveData<Boolean> loading = new MutableLiveData<>();
-    private int qntPages;
+
 
     public FriendsViewModel(Application application, FriendsBusiness friendsBusiness) {
         super(application);
@@ -46,13 +46,11 @@ public class FriendsViewModel extends AndroidViewModel {
 
 
     public void getQntPages() {
+        myFriends.clear();
         loading.postValue(true);
         compositeDisposable.add(
                 friendsBusiness.getListFriends("1").subscribe(
-                        response -> {
-                            pagesMutableLiveData.postValue(response.getTotalPages());
-                            setQntPages(response.getTotalPages());
-                        },
+                        response -> getAllFriends(response.getTotalPages()),
                         throwable -> error.postValue(throwable),
                         () -> loading.postValue(false)
                 )
@@ -60,7 +58,7 @@ public class FriendsViewModel extends AndroidViewModel {
     }
 
     public void getFriendsFilter(String search) {
-        List<User> userFilter = new ArrayList<>();
+        userFilter.clear();
         for (User user :
                 getMyListFriends()) {
             String fullName = user.firstName + " " + user.lastName;
@@ -71,19 +69,10 @@ public class FriendsViewModel extends AndroidViewModel {
         }
         if (userFilter.size() == 0 && search.equals("")) {
             listAllFriendsDTOMutableLiveData.postValue(getMyListFriends());
-        }
-        else  {
+        } else {
             listAllFriendsDTOMutableLiveData.postValue(userFilter);
         }
 
-    }
-
-    public void setQntPages(int qntPages) {
-        this.qntPages = qntPages;
-    }
-
-    public int getQntPage() {
-        return qntPages;
     }
 
 
@@ -95,9 +84,15 @@ public class FriendsViewModel extends AndroidViewModel {
         FriendsViewModel.myFriends.addAll(myFriends);
     }
 
+    public void clearObservable() {
+        myFriends.clear();
+        compositeDisposable.clear();
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
         compositeDisposable.clear();
+        myFriends.clear();
     }
 }

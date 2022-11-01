@@ -2,6 +2,7 @@ package com.lucaspetros.dev.pagefriends.di;
 
 import android.app.Application;
 
+import com.lucaspetros.dev.pagefriends.BuildConfig;
 import com.lucaspetros.dev.pagefriends.data.remote.ApiService;
 
 import javax.inject.Singleton;
@@ -17,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ApiModule {
-    public static String BASE_URL = "https://reqres.in/api/";
     Application application;
 
     public ApiModule(Application application) {
@@ -36,7 +36,7 @@ public class ApiModule {
     @Singleton
     Retrofit provideRetrofit(OkHttpClient.Builder httpClient) {
         return new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(httpClient.build())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(GsonConverterFactory.create())

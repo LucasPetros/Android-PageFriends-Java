@@ -16,4 +16,19 @@
         <item name="android:textSize">@dimen/textSize</item>
     </style>
 
+    <style name="cardShimmerloading">
+        <item name="cardBackgroundColor">@color/gray</item>
+        <item name="cardCornerRadius">@dimen/cornerRadios</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="contentPadding">@dimen/paddingCardView16dp</item>
+        <item name="android:textSize">@dimen/textSize</item>
+    </style>
+
+
+    app:cardBackgroundColor="#8A8888"
+    app:cardCornerRadius="@dimen/cornerRadios"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="@dimen/paddingCardView16dp"
 </resources>
