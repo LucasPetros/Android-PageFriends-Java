@@ -1,6 +1,11 @@
 package com.lucaspetros.dev.pagefriends.ui.feature.friends.presentation.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,13 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.lucaspetros.dev.pagefriends.R;
 import com.lucaspetros.dev.pagefriends.databinding.FragmentMyFriendsBinding;
@@ -30,31 +28,28 @@ public class MyFriendsFragment extends Fragment {
     private FriendsViewModel mViewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentMyFriendsBinding.inflate(inflater,container,false);
+        binding = FragmentMyFriendsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel  = new ViewModelProvider(requireActivity()).get(FriendsViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(FriendsViewModel.class);
         configRecyclerView();
         mViewModel.getQntPages();
         refresh();
 
-        mViewModel.pagesMutableLiveData.observe(getViewLifecycleOwner(), pages -> {
-            mViewModel.getAllFriends(pages);
-
-        });
+        mViewModel.pagesMutableLiveData.observe(getViewLifecycleOwner(), pages -> mViewModel.getAllFriends(pages));
 
         mViewModel.listAllFriendsDTOMutableLiveData.observe(getViewLifecycleOwner(), userList -> {
-            if (userList.size() == 0){
+            if (userList.size() == 0) {
                 binding.txtMyFriends.setVisibility(View.GONE);
                 binding.txtUserNotFound.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 binding.txtMyFriends.setVisibility(View.VISIBLE);
                 binding.txtUserNotFound.setVisibility(View.GONE);
             }
@@ -82,18 +77,17 @@ public class MyFriendsFragment extends Fragment {
         });
 
 
-
     }
 
     private void refresh() {
         binding.swiperefresh.setOnRefreshListener(() -> {
-                mViewModel.getAllFriends(mViewModel.getQntPage());
-                binding.edtSearch.setText("");
-                binding.swiperefresh.setRefreshing(false);
+            mViewModel.getAllFriends(mViewModel.getQntPage());
+            binding.edtSearch.setText("");
+            binding.swiperefresh.setRefreshing(false);
         });
     }
 
-    private void configRecyclerView(){
+    private void configRecyclerView() {
         recyclerView = requireView().findViewById(R.id.rvFriends);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

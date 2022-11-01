@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lucaspetros.dev.pagefriends.data.model.response.dto.FriendsDTO;
 import com.lucaspetros.dev.pagefriends.data.model.User;
 import com.lucaspetros.dev.pagefriends.databinding.LayoutAdapterMyListFriendsBinding;
 import com.lucaspetros.dev.pagefriends.ui.utils.Picasso;
@@ -16,8 +15,8 @@ import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHolder> {
 
-    private List<User> userList;
-    private Context context;
+    private final List<User> userList;
+    private final Context context;
 
     public FriendsAdapter(List<User> userList, Context context) {
         this.userList = userList;
@@ -35,8 +34,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         User user = userList.get(position);
+        String fullName = user.firstName + " " + user.lastName;
         holder.binding.tvEmailUser.setText(user.email);
-        holder.binding.tvNameUser.setText(user.firstName + " " + user.lastName);
+        holder.binding.tvNameUser.setText(fullName);
         Picasso.picasso(holder.binding.ivAvatar, user.avatar);
 
     }
@@ -46,7 +46,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.MyViewHo
         return userList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         LayoutAdapterMyListFriendsBinding binding;
 

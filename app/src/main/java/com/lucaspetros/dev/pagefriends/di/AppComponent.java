@@ -1,6 +1,5 @@
 package com.lucaspetros.dev.pagefriends.di;
 
-import com.lucaspetros.dev.pagefriends.data.repository.FriendsRepository;
 import com.lucaspetros.dev.pagefriends.ui.feature.friends.business.FriendsBusiness;
 import com.lucaspetros.dev.pagefriends.ui.feature.friends.presentation.MainActivity;
 import com.lucaspetros.dev.pagefriends.ui.feature.friends.viewmodel.FriendsViewModelProviderFactory;

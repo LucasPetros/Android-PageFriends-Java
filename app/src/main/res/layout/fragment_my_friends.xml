@@ -38,9 +38,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amigos"
+                    android:text="@string/amigos"
                     android:textAllCaps="true"
-                    android:textColor="@color/gray_light"
+                    android:textColor="@color/background_gray"
                     android:textSize="@dimen/textSize"
                     app:layout_constraintBottom_toBottomOf="@+id/background"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -74,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/edtTextCustom"
+            android:labelFor="@id/edtSearch"
             android:drawableStart="@drawable/ic_asset_search"
             android:layout_marginHorizontal="@dimen/marginHorizontal16dp"
             android:inputType="textCapWords"
@@ -82,7 +83,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:autofillHints="" />
 
 
         <TextView
@@ -101,13 +103,15 @@
             android:id="@+id/txtUserNotFound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/marginVertical64dp"
             android:text="@string/ops_nenhum_usuario_encontrado"
             android:textSize="@dimen/textSize2"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view" />
+
+            app:layout_constraintTop_toBottomOf="@id/view"
+            tools:visibility="visible" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh"

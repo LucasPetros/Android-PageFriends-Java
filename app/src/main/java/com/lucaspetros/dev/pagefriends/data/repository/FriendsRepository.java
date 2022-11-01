@@ -1,11 +1,7 @@
 package com.lucaspetros.dev.pagefriends.data.repository;
 
-import com.lucaspetros.dev.pagefriends.data.model.User;
 import com.lucaspetros.dev.pagefriends.data.model.response.FriendsResponse;
 import com.lucaspetros.dev.pagefriends.data.remote.ApiService;
-
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,10 +17,9 @@ public class FriendsRepository {
         this.apiService = apiService;
     }
 
-    public Observable<FriendsResponse> getListFriendsByPage(String pageId){
+    public Observable<FriendsResponse> getListFriendsByPage(String pageId) {
         return apiService.getListFriendsByPage(pageId);
     }
-
 
 
 }

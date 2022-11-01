@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingHorizontal="@dimen/marginHorizontalCardView12dp">
 
     <androidx.cardview.widget.CardView
@@ -38,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginHorizontal16dp"
-                android:text="Name User"
+                tools:text="Name User"
                 android:textSize="@dimen/textSize"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvEmailUser"
@@ -51,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginHorizontal16dp"
-                android:text="inpeace@inpeace.com"
+                tools:text="inpeace@inpeace.com"
                 android:textSize="@dimen/textSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivAvatar"
@@ -63,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_asset_options"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/optionsbtndescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

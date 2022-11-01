@@ -2,7 +2,6 @@ package com.lucaspetros.dev.pagefriends.di;
 
 import android.app.Application;
 
-import com.lucaspetros.dev.pagefriends.BuildConfig;
 import com.lucaspetros.dev.pagefriends.data.remote.ApiService;
 
 import javax.inject.Singleton;
@@ -18,9 +17,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ApiModule {
-    Application application;
-
     public static String BASE_URL = "https://reqres.in/api/";
+    Application application;
 
     public ApiModule(Application application) {
         this.application = application;
@@ -47,7 +45,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ApiService provideApiService(Retrofit retrofit){
+    ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
     }
 
